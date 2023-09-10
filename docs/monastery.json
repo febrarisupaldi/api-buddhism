@@ -1,0 +1,358 @@
+{
+    "openapi":"3.0.3",
+    "info": {
+        "title":"API Vihara SeBanten",
+        "version":"1.0",
+        "contact": {
+            "name":"Febrari Supaldi",
+            "email": "me@febrarisupaldi.com",
+            "url": "http://www.febrarisupaldi.com"
+        }
+    },
+    "servers": [
+        {
+            "description":"API Server",
+            "url":"http://{environment}",
+            "variables":{
+                "environment":{
+                    "default":"localhost",
+                    "enum":[
+                        "localhost",
+                        "www.febrarisupaldi.com"
+                    ]
+                }
+            }
+        }
+    ],
+    "tags":[
+        {
+            "name": "Vihara",
+            "description": "Semuanya tentang vihara"
+        }
+    ],
+    "paths": {
+        "/vihara":{
+            "get":{
+                "tags": [
+                    "Vihara"
+                ],
+                "summary": "Get All Monastery",
+                "description": "Menampilkan semua vihara",
+                "responses": {
+                    "200":{
+                        "description": "",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "data":{
+                                            "type": "object",
+                                            "properties": {
+                                                "id":{
+                                                    "type": "integer"
+                                                },
+                                                "address":{
+                                                    "type": "string"
+                                                },
+                                                "contact":{
+                                                    "type": "string"
+                                                },
+                                                "name":{
+                                                    "type": "string"
+                                                },
+                                                "latitude":{
+                                                    "type": "string"
+                                                },
+                                                "longitude":{
+                                                    "type": "string"
+                                                },
+                                                "sect":{
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id":{
+                                                            "type": "integer"
+                                                        },
+                                                        "name":{
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                },
+                                                "foundation":{
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id":{
+                                                            "type": "integer"
+                                                        },
+                                                        "name":{
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples":{
+                                    "success":{
+                                        "description":"",
+                                        "value":[
+                                            {
+                                                "id":1,
+                                                "name":"Cetiya Kusala Cetana",
+                                                "address":"Tegalangus",
+                                                "contact":"081291739717",
+                                                "longitude":"-6.0438738",
+                                                "latitude":"106.6649623",
+                                                "sect":[
+                                                    {
+                                                        "id":1,
+                                                        "name":"Theravada"
+                                                    }
+                                                ],
+                                                "foundation":[
+                                                    {
+                                                        "id":1,
+                                                        "name":"Self foundation"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "id":2,
+                                                "name":"Vihara Avalokitesvara Vipassana Graha",
+                                                "address":"Dadap",
+                                                "contact":"08123456789",
+                                                "longitude":"-6.0906646",
+                                                "latitude":"106.7014722",
+                                                "sect":[
+                                                    {
+                                                        "id":2,
+                                                        "name":"Mahayana"
+                                                    }
+                                                ],
+                                                "foundation":[
+                                                    {
+                                                        "id":2,
+                                                        "name":"Sangha Mahayana Indonesia"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post":{
+                "summary": "Insert Monastery",
+                "description": "Input vihara ke dalam database",
+                "tags": ["Vihara"],
+                "requestBody":{
+                    "description": "insert new Monastery",
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "properties": {
+                                    "address":{
+                                        "type": "string"
+                                    },
+                                    "contact":{
+                                        "type": "string"
+                                    },
+                                    "name":{
+                                        "type": "string"
+                                    },
+                                    "longitude":{
+                                        "type": "string"
+                                    },
+                                    "latitude":{
+                                        "type": "string"
+                                    },
+                                    "sect_id":{
+                                        "type": "integer"
+                                    },
+                                    "foundation_id":{
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201":{
+                        "description":"Success insert Monastery",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "message":{
+                                            "type": "string",
+                                            "default":"ok"
+                                        },
+                                        "data":{
+                                            "type": "object",
+                                            "properties": {
+                                                "address":{
+                                                    "type": "string"
+                                                },
+                                                "contact":{
+                                                    "type": "string"
+                                                },
+                                                "name":{
+                                                    "type": "string"
+                                                },
+                                                "longitude":{
+                                                    "type": "string"
+                                                },
+                                                "latitude":{
+                                                    "type": "string"
+                                                },
+                                                "sect_id":{
+                                                    "type": "integer"
+                                                },
+                                                "foundation_id":{
+                                                    "type": "integer"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/vihara/{id}":{
+            "put":{
+                "tags": ["Vihara"],
+                "summary": "Update Monastery",
+                "description": "update vihara ke dalam database",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema":{
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody":{
+                    "description": "Update Monastery",
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "properties": {
+                                    "address":{
+                                        "type": "string"
+                                    },
+                                    "contact":{
+                                        "type": "string"
+                                    },
+                                    "name":{
+                                        "type": "string"
+                                    },
+                                    "longitude":{
+                                        "type": "string"
+                                    },
+                                    "latitude":{
+                                        "type": "string"
+                                    },
+                                    "sect_id":{
+                                        "type": "integer"
+                                    },
+                                    "foundation_id":{
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "description":"Update Contact",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "message":{
+                                            "type": "string",
+                                            "default":"ok"
+                                        },
+                                        "data":{
+                                            "type": "object",
+                                            "properties": {
+                                                "address":{
+                                                    "type": "string"
+                                                },
+                                                "contact":{
+                                                    "type": "string"
+                                                },
+                                                "name":{
+                                                    "type": "string"
+                                                },
+                                                "longitude":{
+                                                    "type": "string"
+                                                },
+                                                "latitude":{
+                                                    "type": "string"
+                                                },
+                                                "sect_id":{
+                                                    "type": "integer"
+                                                },
+                                                "foundation_id":{
+                                                    "type": "integer"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete":{
+                "summary": "Delete Monastery",
+                "description": "Delete data vihara di database",
+                "tags": ["Vihara"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema":{
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204":{
+                        "description":"Success Delete Monastery",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
