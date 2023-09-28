@@ -1,0 +1,184 @@
+{
+    "openapi":"3.0.3",
+    "info": {
+      "title":"API User",
+      "version":"1.0",
+      "contact": {
+        "name":"Febrari Supaldi",
+        "email": "me@febrarisupaldi.com",
+        "url": "http://www.febrarisupaldi.com"
+      }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth":{
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat":"JWT"
+            }
+        }
+    },
+    "servers": [
+        {
+            "description":"API Server",
+            "url":"http://{environment}",
+            "variables":{
+                "environment":{
+                    "default":"localhost",
+                    "enum":[
+                        "localhost",
+                        "www.febrarisupaldi.com"
+                    ]
+                }
+            }
+        }
+    ],
+    "tags":[
+        {
+            "name": "User",
+            "description": "API User Docs"
+        }
+    ],
+    "paths": {
+        "/user/register":{
+            "post":{
+                "tags": ["User"],
+                "summary": "Register new user",
+                "description": "Mendaftarkan pengguna baru",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "properties": {
+                                    "username":{
+                                        "type": "string"
+                                    },
+                                    "password":{
+                                        "type": "string"
+                                    },
+                                    "name":{
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201":{
+                        "description": "Success input new user",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "message":{
+                                            "type": "string",
+                                            "default":"ok"
+                                        },
+                                        "data":{
+                                            "type": "object",
+                                            "properties": {
+                                                "username":{
+                                                    "type": "string"
+                                                },
+                                                "name":{
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/login":{
+            "post":{
+                "tags": ["User"],
+                "summary": "Login user",
+                "description": "Login pengguna",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "properties": {
+                                    "username":{
+                                        "type": "string"
+                                    },
+                                    "password":{
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "description": "Success login",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "message":{
+                                            "type": "string",
+                                            "default":"ok"
+                                        },
+                                        "_accessToken":{
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/me":{
+            "post":{
+                "security": [
+                    {
+                        "bearerAuth":[]
+                    }
+                ],
+                "summary": "Get User data",
+                "description": "Mendapatkan data user dari token",
+                "tags": ["User"],
+                "responses": {
+                    "200":{
+                        "description": "Success get data user",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "data":{
+                                            "type": "object",
+                                            "properties": {
+                                                "username":{
+                                                    "type": "string"
+                                                },
+                                                "name":{
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+  }
